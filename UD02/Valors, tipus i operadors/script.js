@@ -78,9 +78,27 @@ const pi = 3.141592; //a ses constants no es pot canviar es valor*/
 //console.log(null && true);
 //console.log(!null);
 //console.log(undefined && (4>6) ? 1 : 2);
+//console.log(8*null);
+//console.log(8*undefined);
 
-console.log(8*null);
-console.log(8*undefined);
+// CONVERSIÓ AUTOMÀTICA DE TIPUS
+//console.log(8*null);
+//console.log(typeof("5" + 1));
+//console.log(1 + "5");
+//console.log("5" - 1);
+//console.log("cinco" * 2);
+//console.log(false == 0);
+//console.log(true == 1);
+//console.log(null == null);
+//console.log(null == undefined);
+//console.log(null == 0);
 
+// Cortocircuito de los operadores && y ||
+//console.log(null || "Joan");
+//console.log("pepe" || "joan");
+//console.log(0 || 100);
+//console.log(0 && 100);
 
-
+// ??  -->  ||
+//console.log(0 ?? 100);
+//console.log(null ?? 100);
