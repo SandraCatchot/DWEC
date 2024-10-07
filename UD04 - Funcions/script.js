@@ -152,16 +152,146 @@
 // Ej: 4! = 4*3*2*1 = 24
 // Spoiler: 5! = 5 * 4!
 
-function calculaFactorial(n) {
-  let resultado = 1;
-  if (n == 0 || n == 1) {
-    return 1;
-  } else {
-    while (n > 1) {
-      resultado = resultado * n;
-      n--;
+// function calculaFactorial(n) {
+//   let resultado = 1;
+//   if (n == 0 || n == 1) {
+//     return 1;
+//   } else {
+//     while (n > 1) {
+//       resultado = resultado * n;
+//       n--;
+//     }
+//     return resultado;
+//   }
+// }
+// console.log(calculaFactorial(10));
+
+// Crecimiento de las funciones
+
+// imprimirInventarioGranja(10,15);
+
+// function imprimirInventarioGranja(vacas, pollos) {
+//   let cadenaVaca = String(vacas);
+
+//   while (cadenaVaca.length < 3) {
+//     cadenaVaca = "0" + cadenaVaca;
+//   }
+
+//   console.log(`${cadenaVaca} Vacas`);
+
+//   let cadenaPollo = String(pollos);
+
+//   while (cadenaPollo.length < 3) {
+//     cadenaPollo = "0" + cadenaPollo;
+//   }
+
+//   console.log(`${cadenaPollo} Pollos`);
+// }
+
+// function rellenarConCeros(numero, longitud) {
+//   let cadenaNumero = String(numero);
+
+//   while (cadenaNumero.length < 3) {
+//     cadenaNumero = "0" + cadenaNumero;
+//   }
+
+//   return cadenaNumero;
+// }
+
+// function imprimirInventarioGranja(vacas, pollos, cerdos) {
+//   console.log(`${rellenarConCeros(vacas,5)} Vacas`);
+//   console.log(`${rellenarConCeros(vacas,5)} Pollos`);
+//   console.log(`${rellenarConCeros(vacas,5)} Cerdos`);
+//   }
+
+//   imprimirInventarioGranja(5,12,23);
+// rellenarConCeros(vacas, "Vacas");
+// rellenarConCeros(pollos, "Pollos");
+// rellenarConCeros(cerdos, "Cerdos");
+
+// Math.min()
+// let a = Math.min(2,4);
+// console.log(a);
+
+// Escribe una funcion que devuelva el minimo de 3 numeros
+// devuelveMinimo(33, 22, 30);
+
+// function devuelveMinimo(a, b, c) {
+//   let resultado = Math.min(a, b, c);
+
+//   console.log(resultado + " es el número más pequeño de los 3 que has introducido.");
+// }
+
+// Ejercicio recursividad:
+/*  Podemos usar % para verificar si un número es par o impar
+    al usar el %2 para ver si es divisible por dos.
+    Existe otra manera de definir si un número es par o impar:
+    - 0 es PAR
+    - 1 es IMPAR
+    - N: su paridad es la misma que N - 2
+    Define la función recursiva esPar que corresponda a esta
+    descripción. La función debe aceptar un solo parámetro (número
+    entero positivo) y devolver un booleano.
+    Probar con 50 y 75.
+*/
+
+// function esPar(numero) {
+//   if (numero === 0) {
+//     return true; // 0 es par
+//   } else if (numero === 1) {
+//     return false; // 1 es impar
+//   } else {
+//     return esPar(numero - 2);
+//   }
+// }
+
+// // Probar con 50 y 75
+// console.log(esPar(50)); // true
+// console.log(esPar(75)); // false
+
+// inicial 3524
+// 1paso -> 5432 + 2345 = 3087
+// 2paso -> 8730 - 0378 = 8352
+// 3 paso -> 8532 - 2358 = 6174
+// Resuelto en 3 pasos
+
+function calculaKaprekar(numero) {
+  let pasos = 0;
+  const numMax = 6174;
+
+  while (numero !== numMax && pasos < 7) {
+    // Convertir el número a una cadena y asegurar que tenga 4 dígitos
+    let digitos = numero.toString().split('');
+
+    while (digitos.length < 4) {
+      digitos = "0" + digitos;
     }
-    return resultado;
+
+    // Ordenar los dígitos para crear los números ascendente y descendente
+    digitos.sort();
+    let numeroAscendente = parseInt(digitos.join(''), 10);
+    let numeroDescendente = parseInt(digitos.reverse().join(''), 10);
+
+    // Realizar la resta y convertir el resultado a cadena
+    let resultado = numeroDescendente - numeroAscendente;
+    let resultadoString = resultado.toString();
+
+    // Asegurar que el resultado tenga 4 dígitos
+    while (resultadoString.length < 4) {
+      resultadoString = '0' + resultadoString;
+    }
+
+    numero = parseInt(resultadoString, 10);
+    pasos++;
+
+    console.log(pasos + " paso: " + numeroDescendente + " - " + numeroAscendente + " = " + resultadoString);
+  }
+
+  if (numero === numMax) {
+    console.log("Resuelto en " + pasos + " pasos.");
+  } else {
+    console.log("No se pudo resolver en 7 pasos.");
   }
 }
-console.log(calculaFactorial(1000));
+
+calculaKaprekar(1234);
