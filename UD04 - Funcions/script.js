@@ -255,43 +255,72 @@
 // 3 paso -> 8532 - 2358 = 6174
 // Resuelto en 3 pasos
 
-function calculaKaprekar(numero) {
-  let pasos = 0;
-  const numMax = 6174;
+// function calculaKaprekar(numero) {
+//   let pasos = 0;
+//   const numMax = 6174;
 
-  while (numero !== numMax && pasos < 7) {
-    // Convertir el número a una cadena y asegurar que tenga 4 dígitos
-    let digitos = numero.toString().split('');
+//   // Convertimos número a cadena y aseguramos que tenga 4 dígitos, añadimos 0 si tiene -4 digitos
+//   let numeroString = numero.toString();
+//   while (numeroString.length < 4) {
+//     numeroString = "0" + numeroString;
+//   }
 
-    while (digitos.length < 4) {
-      digitos = "0" + digitos;
-    }
+//   while (numeroString !== "6174" && pasos < 7) {
+//     // Separamos la cadena en un array de caracteres (dígitos)
+//     let digitos = numeroString.split("");
 
-    // Ordenar los dígitos para crear los números ascendente y descendente
-    digitos.sort();
-    let numeroAscendente = parseInt(digitos.join(''), 10);
-    let numeroDescendente = parseInt(digitos.reverse().join(''), 10);
+//     // Ordenamos los dígitos de forma numérica ascendente y descendente
+//     let numeroAscendente = digitos
+//       .sort((a, b) => a - b) // Para orden numérico ascendente
+//       .join(""); //une lo que separamos con split
+//     let numeroDescendente = digitos
+//       .sort((a, b) => b - a) // Para orden numérico descendente
+//       .join("");
 
-    // Realizar la resta y convertir el resultado a cadena
-    let resultado = numeroDescendente - numeroAscendente;
-    let resultadoString = resultado.toString();
+//     // Convertimos las cadenas a números para realizar la resta y volvemos a convertirlo a String
+//     let resultado = parseInt(numeroDescendente) - parseInt(numeroAscendente);
+//     numeroString = resultado.toString();
 
-    // Asegurar que el resultado tenga 4 dígitos
-    while (resultadoString.length < 4) {
-      resultadoString = '0' + resultadoString;
-    }
+//     // Asegurar que el resultado tenga 4 dígitos (añadir ceros a la izquierda si es necesario)
+//     while (numeroString.length < 4) {
+//       numeroString = "0" + numeroString;
+//     }
 
-    numero = parseInt(resultadoString, 10);
-    pasos++;
+//     pasos++;
+//     console.log(
+//       `Paso número ${pasos} - ${numeroDescendente} - ${numeroAscendente} = ${numeroString}`
+//     );
+//   }
 
-    console.log(pasos + " paso: " + numeroDescendente + " - " + numeroAscendente + " = " + resultadoString);
+//   if (numeroString === "6174") {
+//     console.log("Resuelto en " + pasos + " pasos.");
+//   } else {
+//     console.log("Algo no funciona porque debe resolverse en menos de 7 pasos.");
+//   }
+// }
+
+// calculaKaprekar(8303);
+
+
+function contarPeces(cadena, posicion = 0) {
+  // Usamos indexOf para encontrar el siguiente "><>" a partir de la posición actual
+  const siguientePez = cadena.indexOf("><>", posicion);
+
+  // Si no hay más "><>", devolvemos 0 porque no hay más peces que contar.
+  // Cuando indexOf devuelve -1 = no hay más elementos buscados
+  if (siguientePez === -1) {
+    return 0;
   }
 
-  if (numero === numMax) {
-    console.log("Resuelto en " + pasos + " pasos.");
-  } else {
-    console.log("No se pudo resolver en 7 pasos.");
-  }
+  // Caso recursivo: si encontramos un "><>", contamos 1 y llamamos de nuevo a la función,
+  // pero ahora buscamos desde la posición siguiente al pez encontrado.
+  return 1 + contarPeces(cadena, siguientePez + 3);
 }
 
-calculaKaprekar(1234);
+const oceano = "~~~~~~~~~~><>><>~~~><>~~~~~~><>~><>~"; //5
+const oceano2 = "~~~><>~~~~~~~~~~~~><>~~~~~~><>~><>~"; //4
+const oceano3 = "~~~><>><>~><>~><>><>~><>~~~><>~><>~"; //8
+
+console.log(contarPeces(oceano3)); 
+
+
