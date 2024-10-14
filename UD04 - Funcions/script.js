@@ -301,26 +301,81 @@
 
 // calculaKaprekar(8303);
 
+// function contarPeces(cadena, posicion = 0) {
+//   // Usamos indexOf para encontrar el siguiente "><>" a partir de la posición actual
+//   const siguientePez = cadena.indexOf("><>", posicion);
 
-function contarPeces(cadena, posicion = 0) {
-  // Usamos indexOf para encontrar el siguiente "><>" a partir de la posición actual
-  const siguientePez = cadena.indexOf("><>", posicion);
+//   // Si no hay más "><>", devolvemos 0 porque no hay más peces que contar.
+//   // Cuando indexOf devuelve -1 = no hay más elementos buscados
+//   if (siguientePez === -1) {
+//     return 0;
+//   }
 
-  // Si no hay más "><>", devolvemos 0 porque no hay más peces que contar.
-  // Cuando indexOf devuelve -1 = no hay más elementos buscados
-  if (siguientePez === -1) {
-    return 0;
+//   // Caso recursivo: si encontramos un "><>", contamos 1 y llamamos de nuevo a la función,
+//   // pero ahora buscamos desde la posición siguiente al pez encontrado.
+//   return 1 + contarPeces(cadena, siguientePez + 3);
+// }
+
+// const oceano = "~~~~~~~~~~><>><>~~~><>~~~~~~><>~><>~"; //5
+// const oceano2 = "~~~><>~~~~~~~~~~~~><>~~~~~~><>~><>~"; //4
+// const oceano3 = "~~~><>><>~><>~><>><>~><>~~~><>~><>~"; //8
+
+// console.log(contarPeces(oceano3));
+
+//
+
+let numeroSecreto = Math.floor(Math.random() * 100) + 1;
+let intentosRestantes = 5;
+
+function crearBotones() {
+  const containerBotones = document.getElementById("contenedor-botones");
+  
+  for (let i = 1; i <= 100; i++) {
+    const boton = document.createElement("button"); //creamos elemento
+    boton.textContent = i; // mostramos texto en elemento
+    boton.id = `boton${i}`; //asignamos id a cada botón
+
+    // Al hacer clic, con addEventListener llamamos a la función adivinarNumero con el número del botón
+    boton.addEventListener("click", () => {
+      adivinarNumero(i);
+    });
+
+    containerBotones.appendChild(boton); //añadimos un nuevo elemento hijo con appendChild
   }
-
-  // Caso recursivo: si encontramos un "><>", contamos 1 y llamamos de nuevo a la función,
-  // pero ahora buscamos desde la posición siguiente al pez encontrado.
-  return 1 + contarPeces(cadena, siguientePez + 3);
 }
 
-const oceano = "~~~~~~~~~~><>><>~~~><>~~~~~~><>~><>~"; //5
-const oceano2 = "~~~><>~~~~~~~~~~~~><>~~~~~~><>~><>~"; //4
-const oceano3 = "~~~><>><>~><>~><>><>~><>~~~><>~><>~"; //8
+function adivinarNumero(numero) {
+  if (numero === numeroSecreto) {
+    alert(`¡Felicidades! Adivinaste el número secreto en ${6 - intentosRestantes} intentos.`);
+    eliminarBotones(1, 100);
+  } else {
+    intentosRestantes--;
+    if (intentosRestantes === 0) {
+      alert(
+        `Lo siento, te quedaste sin intentos. El número secreto era ${numeroSecreto}.`
+      );
+      eliminarBotones(1, 100);
+    } else if (numero < numeroSecreto) {
+      alert(
+        `El número secreto es más grande. Te quedan ${intentosRestantes} intentos.`
+      );
+      eliminarBotones(1, numero);
+    } else {
+      alert(
+        `El número secreto es más pequeño. Te quedan ${intentosRestantes} intentos.`
+      );
+      eliminarBotones(numero, 100);
+    }
+  }
+}
 
-console.log(contarPeces(oceano3)); 
+function eliminarBotones(inicio, fin) {
+  for (let i = inicio; i <= fin; i++) {
+    const boton = document.getElementById(`boton${i}`);
+    if (boton) {
+      boton.remove();
+    }
+  }
+}
 
-
+crearBotones();
