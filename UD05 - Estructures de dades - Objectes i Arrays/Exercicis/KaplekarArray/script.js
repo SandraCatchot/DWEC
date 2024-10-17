@@ -34,10 +34,17 @@ function calculaKaprekar(numero) {
     }
 
     pasos++;
+
+    let stringPaso = `Paso número ${pasos} - ${numeroDescendente} - ${numeroAscendente} = ${numeroString}`;
+    let arrayPasos = new Array();
+    arrayPasos.unshift(stringPaso);
+
     console.log(
       `Paso número ${pasos} - ${numeroDescendente} - ${numeroAscendente} = ${numeroString}`
     );
   }
+
+  console.log(arrayPasos);
 
   if (numeroString === "6174") {
     console.log("Resuelto en " + pasos + " pasos.");
