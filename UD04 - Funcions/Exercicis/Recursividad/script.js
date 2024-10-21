@@ -25,6 +25,8 @@
 // console.log(esPar(50)); // true
 // console.log(esPar(75)); // false
 
+// EJERCICIO KAPLEKAR
+
 // inicial 3524
 // 1paso -> 5432 + 2345 = 3087
 // 2paso -> 8730 - 0378 = 8352
