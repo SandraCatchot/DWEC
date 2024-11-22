@@ -7,26 +7,37 @@
     <title>El Ahorcado</title>
   </head>
   <body>
-    <h2>¿Serás capaz de adivinar la palabra?</h2>
-    <div>
-      <button id="botonIniciar">JUGAR</button>
-      <button id="botonParar">PARAR</button>
-      <button id="botonReiniciar">REINICIAR</button>
+    <h1>¿Serás capaz de adivinar la palabra?</h1>
+    <h3><b>Selecciona una CATEGORÍA para jugar</b></h3>
+    <div class="contenedor-categoria-botones">
+      <label for="categoria-select"></label>
+      <select id="categoria-select">
+        <option value="animales">Animales</option>
+        <option value="tecnologia">Tecnología</option>
+        <option value="comida">Comida</option>
+        <option value="lugares">Lugares</option>
+        <option value="colores">Colores</option>
+      </select>
+      <div>
+        <button id="botonParar">PAUSAR</button>
+        <button id="botonReiniciar">REINICIAR</button>
+      </div>
     </div>
+
     <div id="palabra-secreta"></div>
     <div id="contenedor-datos">
       <div>
-        <div id="contenedor-cronometro"></div>
-        <div id="contenedor-cronometro-letra"></div>
-        <div id="contenedor-intentos"></div>
-        <div id="contenedor-errores"></div>
+        <div id="contenedor-cronometro">Tiempo TOTAL: 0 segundos</div>
+        <div id="contenedor-intentos">Intentos restantes: 7</div>
+        <div id="contenedor-errores">Errores: 0</div>
       </div>
       <div id="contenedor-ahorcado">
         <img id="imagen-ahorcado" src="img/0.png" alt="Estado del ahorcado" />
       </div>
     </div>
     <h3>Elige una letra...</h3>
-    <div class="contenedor-mix">      
+    <div id="contenedor-cronometro-letra">Tiempo LETRA: 10 segundos</div>
+    <div class="contenedor-mix">
       <div class="contenedor-letras">
         <button class="letra">A</button>
         <button class="letra">B</button>

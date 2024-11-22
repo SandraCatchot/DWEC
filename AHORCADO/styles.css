@@ -15,27 +15,35 @@ body {
   align-items: center;
 }
 
-h2 {
+h1 {
   background-color: #220c10;
   color: #c6ebbe;
   border: solid 2px #c6ebbe;
-  max-width: 600px;
-  padding: 20px;
+  max-width: 650px;
+  padding: 15px;
+  font-size: 22px;
+}
+
+h3 {
+  margin: 15px;
+  font-size: large;
 }
 
 .contenedor-mix {
   display: flex;
-  justify-content: space-between;
-  max-width: 800px ;
+  justify-content: space-around;
+  max-width: 800px;
 }
 
 #contenedor-datos {
   display: flex;
+  align-items: center;
 }
 
 .contenedor-letras {
   margin: 10px;
   margin-top: 10px;
+  margin-bottom: 100px;
 }
 
 .letra {
@@ -88,11 +96,10 @@ h2 {
 
 #contenedor-errores {
   margin-top: 10px;
-  background-color: #c6ebbe;
-  border: solid 2px #220c10;
-  border-radius: 5px;
-  color: red;
+  color: #c6ebbe;
+  background-color: #220c10;
   padding: 10px;
+  border-radius: 5px;
 }
 
 #contenedor-intentos {
@@ -100,8 +107,9 @@ h2 {
   background-color: #c6ebbe;
   border: solid 2px #220c10;
   border-radius: 5px;
-  color: red;
+  color: #220c10;
   padding: 10px;
+  font-size: medium;
 }
 
 #contenedor-cronometro {
@@ -118,33 +126,23 @@ h2 {
   background-color: #c6ebbe;
   padding: 10px;
   border-radius: 5px;
-}
-
-#botonIniciar {
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  background-color: #c6ebbe;
-  width: 100px;
-
-  &:hover {
-    background-color: #22b427;
-    cursor: pointer;
-    transform: scale(1.1);
-  }
+  border: solid 2px #220c10;
+  width: 700px;
 }
 
 #botonReiniciar {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 15px;
+  margin-left: 10px;
   background-color: #c6ebbe;
   width: 100px;
 
   &:hover {
-    background-color: #ef8d1d;
+    background-color: #28a745;
     cursor: pointer;
     transform: scale(1.1);
+    border: solid 2px #220c10;
   }
 }
 
@@ -152,6 +150,7 @@ h2 {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 15px;
+  margin-left: 10px;
   background-color: #c6ebbe;
   width: 100px;
 
@@ -159,15 +158,29 @@ h2 {
     background-color: #f02727;
     cursor: pointer;
     transform: scale(1.1);
+    border: solid 2px #220c10;
   }
 }
 
-#contenedor-ahorcado {
-  margin-top: 20px;
+#imagen-ahorcado {
+  max-width: 280px;
+  max-height: 280px;
+}
+
+.contenedor-categoria-botones {
+  display: flex;
   align-items: center;
 }
 
-#imagen-ahorcado {
-  max-width: 250px;
-  max-height: 250px;
+#categoria-select {
+  width: 250px;
+  height: 50px;
+  background-color: #c6ebbe;
+  color: #220c10;
+  font-size: larger;
+
+  &:hover {
+    background-color: #220c10;
+    color: #c6ebbe;
+  }
 }
