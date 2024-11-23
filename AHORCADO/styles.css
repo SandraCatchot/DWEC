@@ -43,7 +43,7 @@ h3 {
 .contenedor-letras {
   margin: 10px;
   margin-top: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 15px;
 }
 
 .letra {
@@ -53,11 +53,11 @@ h3 {
   font-size: 15px;
   font-weight: bold;
   margin: 5px;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
   border: solid 1px #c6ebbe;
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 45px;
+  max-height: 45px;
 
   &:hover {
     transform: scale(1.15);
@@ -95,7 +95,7 @@ h3 {
 }
 
 #contenedor-errores {
-  margin-top: 10px;
+  margin: 10px;
   color: #c6ebbe;
   background-color: #220c10;
   padding: 10px;
@@ -103,7 +103,7 @@ h3 {
 }
 
 #contenedor-intentos {
-  margin-top: 10px;
+  margin: 10px;
   background-color: #c6ebbe;
   border: solid 2px #220c10;
   border-radius: 5px;
@@ -113,7 +113,7 @@ h3 {
 }
 
 #contenedor-cronometro {
-  margin-top: 10px;
+  margin: 10px;
   color: #c6ebbe;
   background-color: #220c10;
   padding: 10px;
@@ -121,22 +121,21 @@ h3 {
 }
 
 #contenedor-cronometro-letra {
-  margin-top: 10px;
+  margin: 10px;
   color: red;
   background-color: #c6ebbe;
   padding: 10px;
   border-radius: 5px;
   border: solid 2px #220c10;
-  width: 700px;
+  width: 300px;
 }
 
 #botonReiniciar {
-  padding: 10px;
-  margin-top: 10px;
+  padding: 5px;
+  margin: 5px;
   margin-bottom: 15px;
-  margin-left: 10px;
   background-color: #c6ebbe;
-  width: 100px;
+  width: 80px;
 
   &:hover {
     background-color: #28a745;
@@ -147,12 +146,11 @@ h3 {
 }
 
 #botonParar {
-  padding: 10px;
-  margin-top: 10px;
+  padding: 5px;
+  margin: 5px;
   margin-bottom: 15px;
-  margin-left: 10px;
   background-color: #c6ebbe;
-  width: 100px;
+  width: 80px;
 
   &:hover {
     background-color: #f02727;
@@ -173,14 +171,89 @@ h3 {
 }
 
 #categoria-select {
-  width: 250px;
+  width: 150px;
   height: 50px;
   background-color: #c6ebbe;
   color: #220c10;
   font-size: larger;
+  margin: 10px;
+  padding: 5px;
 
   &:hover {
     background-color: #220c10;
     color: #c6ebbe;
+  }
+}
+
+#ranking {
+  width: 90%;
+  max-width: 800px; 
+  margin: 20px auto;
+  background-color: #c6ebbe;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  overflow-x: auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+
+  #ranking h3 {
+  margin: 10px 0;
+  font-size: 1.5em;
+  color: #220c10;
+}
+}
+
+#rankingTabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  table-layout: fixed; 
+}
+
+#rankingTabla th,
+#rankingTabla td {
+  padding: 8px 10px;
+  border: 1px solid #220c10;
+  word-wrap: break-word; 
+}
+
+#rankingTabla th {
+  background-color: #220c10;
+  color: #c6ebbe;
+  font-weight: bold;
+  text-align: center;
+}
+
+#rankingTabla td {
+  background-color: #eaf9e6;
+  color: #220c10;
+  text-align: center;
+}
+
+#mostrarRanking {
+  padding: 5px;
+  margin: 5px;
+  margin-bottom: 20px;
+  background-color: #c6ebbe;
+  width: 150px;
+
+  &:hover {
+    background-color: yellow;
+    cursor: pointer;
+    transform: scale(1.1);
+    border: solid 2px #220c10;
+  }
+}
+
+@media (max-width: 600px) {
+  #ranking {
+    width: 100%; 
+    padding: 5px;
+  }
+
+  #rankingTabla th,
+  #rankingTabla td {
+    padding: 6px; 
+    font-size: 0.9em; 
   }
 }

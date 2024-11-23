@@ -13,13 +13,14 @@ const palabraSecretaDiv = document.getElementById("palabra-secreta");
 const erroresDiv = document.getElementById("contenedor-errores");
 const intentosDiv = document.getElementById("contenedor-intentos");
 const cronometroDiv = document.getElementById("contenedor-cronometro");
-const cronometroLetraDiv = document.getElementById(
-  "contenedor-cronometro-letra"
-);
+const cronometroLetraDiv = document.getElementById("contenedor-cronometro-letra");
 const imagenAhorcado = document.getElementById("imagen-ahorcado");
 const botonReiniciar = document.getElementById("botonReiniciar");
 const botonParar = document.getElementById("botonParar");
 const selectCategoria = document.getElementById("categoria-select");
+const botonRanking = document.getElementById("mostrarRanking");
+const rankingDiv = document.getElementById("ranking");
+const rankingTablaBody = document.querySelector("#rankingTabla tbody");
 
 let contadorErrores = 0;
 const maxIntentos = 7;
@@ -57,7 +58,7 @@ function pedirNombreJugador() {
 
 function guardarDatosJugador(categoria) {
   const datosJugador = {
-    nombre: nombreJugador,
+    nombre: nombreJugador || "Anónimo",
     palabra: palabraSecreta,
     categoria: categoria,
     tiempo: tiempo,
@@ -94,6 +95,8 @@ function guardarDatosJugador(categoria) {
   }
 
   localStorage.setItem("historialAhorcado", JSON.stringify(historial));
+
+  console.log("Historial actualizado:", historial); // Log para validar
 }
 
 function inicializarJuego(categoriaSeleccionada) {
@@ -184,11 +187,11 @@ function reducirIntentos() {
   if (contadorErrores >= maxIntentos) {
     detenerCronometro();
     detenerCuentaAtras();
-    intentosDiv.style.border = "3px solid red";
+    intentosDiv.style.border = "3px solid black";
     intentosDiv.style.fontWeight = "bolder";
     intentosDiv.style.fontSize = "x-large";
-    intentosDiv.style.backgroundColor = "yellow";
-    intentosDiv.innerText = "Juego Terminado: ¡Has perdido!";
+    intentosDiv.style.backgroundColor = "red";
+    intentosDiv.innerText = "¡Has perdido!";
     desactivarBotones();
   }
 }
@@ -200,7 +203,7 @@ function actualizarImagenAhorcado() {
 }
 
 function verificarLetra(letra, boton) {
-  detenerCuentaAtras(); // Reiniciar cuenta atrás cuando se selecciona una letra
+  detenerCuentaAtras();
   iniciarCuentaAtras();
 
   let letraEncontrada = false;
@@ -223,6 +226,10 @@ function verificarLetra(letra, boton) {
       detenerCronometro();
       detenerCuentaAtras();
       intentosDiv.innerText = "¡HAS GANADO!";
+      intentosDiv.style.border = "3px solid black";
+      intentosDiv.style.fontWeight = "bolder";
+      intentosDiv.style.fontSize = "x-large";
+      intentosDiv.style.backgroundColor = "green";
       desactivarBotones();
       const categoriaSeleccionada = selectCategoria.value;
       guardarDatosJugador(categoriaSeleccionada);
@@ -265,8 +272,42 @@ function reiniciarJuego() {
   intentosDiv.innerText = `Intentos restantes: ${
     maxIntentos - contadorErrores
   }`;
-  intentosDiv.style.border = ""; // Quitar bordes resaltados
-  intentosDiv.style.fontWeight = ""; // Quitar negrita
-  intentosDiv.style.fontSize = ""; // Quitar tamaño cambiado
-  intentosDiv.style.backgroundColor = ""; // Quitar fondo
+  intentosDiv.style.border = "";
+  intentosDiv.style.fontWeight = "";
+  intentosDiv.style.fontSize = "";
+  intentosDiv.style.backgroundColor = "";
 }
+
+botonRanking.addEventListener("click", () => {
+  let historial = JSON.parse(localStorage.getItem("historialAhorcado")) || [];
+
+  // Filtrar registros inválidos
+  historial = historial.filter((registro) => registro && registro.palabra);
+
+  if (historial.length === 0) {
+    alert("No hay datos válidos para mostrar en el ranking.");
+    rankingDiv.style.display = "none";
+    return;
+  }
+
+  rankingTablaBody.innerHTML = "";
+
+  // Ordenar el historial por palabra alfabéticamente
+  historial.sort((a, b) => a.palabra.localeCompare(b.palabra));
+
+  historial.forEach((registro) => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${registro.palabra}</td>
+      <td>${registro.nombre || "Sin Nombre"}</td>
+      <td>${registro.tiempo || 0} segundos</td>
+      <td>${registro.errores || 0}</td>
+      <td>${registro.categoria || "Sin Categoría"}</td>
+    `;
+
+    rankingTablaBody.appendChild(fila);
+  });
+
+  rankingDiv.style.display = "block";
+});
