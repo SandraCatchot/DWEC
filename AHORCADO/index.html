@@ -8,10 +8,10 @@
   </head>
   <body>
     <h1>¿Serás capaz de adivinar la palabra?</h1>
-    <h3><b>Selecciona una CATEGORÍA para jugar</b></h3>
     <div class="contenedor-categoria-botones">
       <label for="categoria-select"></label>
       <select id="categoria-select">
+        <option value="" disabled selected>Elige una categoría...</option>
         <option value="animales">Animales</option>
         <option value="tecnologia">Tecnología</option>
         <option value="comida">Comida</option>
@@ -30,6 +30,8 @@
         <div id="contenedor-cronometro">Tiempo TOTAL: 0 segundos</div>
         <div id="contenedor-intentos">Intentos restantes: 7</div>
         <div id="contenedor-errores">Errores: 0</div>
+        <p>PISTA = -2 INTENTOS</p>
+        <button id="botonPista">PISTA</button>        
       </div>
       <div id="contenedor-ahorcado">
         <img id="imagen-ahorcado" src="img/0.png" alt="Estado del ahorcado" />

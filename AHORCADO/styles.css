@@ -7,8 +7,8 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
-  background-color: #dd7230;
-  color: #220c10;
+  background-color: #A675A1;
+  color: #463F3A;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -16,9 +16,9 @@ body {
 }
 
 h1 {
-  background-color: #220c10;
-  color: #c6ebbe;
-  border: solid 2px #c6ebbe;
+  background-color: #463F3A;
+  color: #F4F3EE;
+  border: solid 2px #F4F3EE;
   max-width: 650px;
   padding: 15px;
   font-size: 22px;
@@ -47,23 +47,23 @@ h3 {
 }
 
 .letra {
-  background-color: #220c10;
-  color: #c6ebbe;
+  background-color: #463F3A;
+  color: #F4F3EE;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
   margin: 5px;
   padding: 10px;
   border-radius: 5px;
-  border: solid 1px #c6ebbe;
+  border: solid 1px #F4F3EE;
   max-width: 45px;
   max-height: 45px;
 
   &:hover {
     transform: scale(1.15);
-    background-color: #c6ebbe;
-    color: #220c10;
-    border: solid 1px #220c10;
+    background-color: #F4F3EE;
+    color: #463F3A;
+    border: solid 1px #463F3A;
     
   }
 }
@@ -74,19 +74,19 @@ h3 {
 
 .letra.correcta {
   background-color: #28a745;
-  color: #220c10;
+  color: #463F3A;
 }
 
 .letra.incorrecta {
   background-color: #dc3545;
-  color: #220c10;
+  color: #463F3A;
 }
 
 #palabra-secreta {
   margin-top: 10px;
   padding: 15px;
   font-size: 35px;
-  color: #220c10;
+  color: black;
   min-height: 35px;
 }
 
@@ -96,68 +96,73 @@ h3 {
 
 #contenedor-errores {
   margin: 10px;
-  color: #c6ebbe;
-  background-color: #220c10;
+  color: #F4F3EE;
+  background-color: #463F3A;
   padding: 10px;
   border-radius: 5px;
 }
 
 #contenedor-intentos {
   margin: 10px;
-  background-color: #c6ebbe;
-  border: solid 2px #220c10;
+  background-color: #F4F3EE;
+  border: solid 2px #463F3A;
   border-radius: 5px;
-  color: #220c10;
+  color: #463F3A;
   padding: 10px;
   font-size: medium;
 }
 
 #contenedor-cronometro {
   margin: 10px;
-  color: #c6ebbe;
-  background-color: #220c10;
+  color: #F4F3EE;
+  background-color: #463F3A;
   padding: 10px;
   border-radius: 5px;
 }
 
 #contenedor-cronometro-letra {
   margin: 10px;
-  color: red;
-  background-color: #c6ebbe;
+  color: #dc3545;
+  background-color: #F4F3EE;
   padding: 10px;
   border-radius: 5px;
-  border: solid 2px #220c10;
+  border: solid 2px #463F3A;
   width: 300px;
 }
 
 #botonReiniciar {
-  padding: 5px;
+  padding: 10px;
   margin: 5px;
-  margin-bottom: 15px;
-  background-color: #c6ebbe;
-  width: 80px;
+  background-color: #F4F3EE;
 
   &:hover {
     background-color: #28a745;
     cursor: pointer;
     transform: scale(1.1);
-    border: solid 2px #220c10;
+    border: solid 2px #463F3A;
   }
 }
 
 #botonParar {
-  padding: 5px;
+  padding: 10px;
   margin: 5px;
-  margin-bottom: 15px;
-  background-color: #c6ebbe;
-  width: 80px;
+  background-color: #F4F3EE;
 
   &:hover {
-    background-color: #f02727;
+    background-color: #dc3545;
     cursor: pointer;
     transform: scale(1.1);
-    border: solid 2px #220c10;
+    border: solid 2px #463F3A;
   }
+}
+
+#botonPista {
+  padding: 15px;
+  margin: 10px;
+  width: 100px;
+  background-color: #28a745;
+  color: black;
+  cursor: pointer;
 }
 
 #imagen-ahorcado {
@@ -171,17 +176,17 @@ h3 {
 }
 
 #categoria-select {
-  width: 150px;
-  height: 50px;
-  background-color: #c6ebbe;
-  color: #220c10;
-  font-size: larger;
+  width: 250px;
+  height: 30px;
+  background-color: #F4F3EE;
+  color: #463F3A;
+  font-size: medium;
   margin: 10px;
   padding: 5px;
 
   &:hover {
-    background-color: #220c10;
-    color: #c6ebbe;
+    background-color: #463F3A;
+    color: #F4F3EE;
   }
 }
 
@@ -189,7 +194,7 @@ h3 {
   width: 90%;
   max-width: 800px; 
   margin: 20px auto;
-  background-color: #c6ebbe;
+  background-color: #F4F3EE;
   border-radius: 5px;
   padding: 10px;
   text-align: center;
@@ -199,7 +204,7 @@ h3 {
   #ranking h3 {
   margin: 10px 0;
   font-size: 1.5em;
-  color: #220c10;
+  color: #463F3A;
 }
 }
 
@@ -213,20 +218,20 @@ h3 {
 #rankingTabla th,
 #rankingTabla td {
   padding: 8px 10px;
-  border: 1px solid #220c10;
+  border: 1px solid #463F3A;
   word-wrap: break-word; 
 }
 
 #rankingTabla th {
-  background-color: #220c10;
+  background-color: #463F3A;
   color: #c6ebbe;
   font-weight: bold;
   text-align: center;
 }
 
 #rankingTabla td {
-  background-color: #eaf9e6;
-  color: #220c10;
+  background-color: #F4F3EE;
+  color: #463F3A;
   text-align: center;
 }
 
@@ -234,14 +239,14 @@ h3 {
   padding: 5px;
   margin: 5px;
   margin-bottom: 20px;
-  background-color: #c6ebbe;
+  background-color: #F4F3EE;
   width: 150px;
 
   &:hover {
     background-color: yellow;
     cursor: pointer;
     transform: scale(1.1);
-    border: solid 2px #220c10;
+    border: solid 2px black;
   }
 }
 
