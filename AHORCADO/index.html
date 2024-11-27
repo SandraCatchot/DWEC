@@ -8,7 +8,8 @@
   </head>
   <body>
     <h1>¿Serás capaz de adivinar la palabra?</h1>
-    <div class="contenedor-categoria-botones">
+    <h3>Elige una categoría para jugar</h3>
+    <div class="contenedor-categoria-botones">      
       <label for="categoria-select"></label>
       <select id="categoria-select">
         <option value="" disabled selected>Elige una categoría...</option>
@@ -21,13 +22,12 @@
       <div>
         <button id="botonParar">PAUSAR</button>
         <button id="botonReiniciar">REINICIAR</button>
-        <button id="botonReiniciar">REINICIAR</button>
       </div>
     </div>
 
     <div id="palabra-secreta"></div>
     <div id="contenedor-datos">
-      <div>
+      <div class="divIzquierdo">
         <div id="contenedor-cronometro">Tiempo TOTAL: 0 segundos</div>
         <div id="contenedor-intentos">Intentos restantes: 7</div>
         <div id="contenedor-errores">Errores: 0</div>

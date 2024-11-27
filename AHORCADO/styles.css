@@ -20,18 +20,19 @@ h1 {
   color: #F4F3EE;
   border: solid 2px #F4F3EE;
   max-width: 650px;
-  padding: 15px;
-  font-size: 22px;
+  padding: 10px;
+  font-size: 16px;
 }
 
 h3 {
-  margin: 15px;
-  font-size: large;
+  margin: 8px;
+  font-size: 14px;
+  color: black;
 }
 
 .contenedor-mix {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   max-width: 800px;
 }
 
@@ -41,23 +42,21 @@ h3 {
 }
 
 .contenedor-letras {
-  margin: 10px;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 25px;
 }
 
 .letra {
   background-color: #463F3A;
   color: #F4F3EE;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
-  margin: 5px;
-  padding: 10px;
+  margin: 8px;
+  padding: 12px;
   border-radius: 5px;
   border: solid 1px #F4F3EE;
-  max-width: 45px;
-  max-height: 45px;
 
   &:hover {
     transform: scale(1.15);
@@ -94,12 +93,18 @@ h3 {
   margin: 0 10px;
 }
 
+.divIzquierdo p {
+  font-size: 11px;
+  color: black;
+}
+
 #contenedor-errores {
   margin: 10px;
   color: #F4F3EE;
   background-color: #463F3A;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
+  font-size: 14px;
 }
 
 #contenedor-intentos {
@@ -108,30 +113,32 @@ h3 {
   border: solid 2px #463F3A;
   border-radius: 5px;
   color: #463F3A;
-  padding: 10px;
+  padding: 5px;
   font-size: medium;
+  font-size: 14px;
 }
 
 #contenedor-cronometro {
   margin: 10px;
   color: #F4F3EE;
   background-color: #463F3A;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
+  font-size: 14px;
 }
 
 #contenedor-cronometro-letra {
-  margin: 10px;
+  margin: 5px;
   color: #dc3545;
   background-color: #F4F3EE;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   border: solid 2px #463F3A;
   width: 300px;
 }
 
 #botonReiniciar {
-  padding: 10px;
+  padding: 5px;
   margin: 5px;
   background-color: #F4F3EE;
 
@@ -144,7 +151,7 @@ h3 {
 }
 
 #botonParar {
-  padding: 10px;
+  padding: 5px;
   margin: 5px;
   background-color: #F4F3EE;
 
@@ -176,7 +183,7 @@ h3 {
 }
 
 #categoria-select {
-  width: 250px;
+  width: 180px;
   height: 30px;
   background-color: #F4F3EE;
   color: #463F3A;
