@@ -1,58 +1,9 @@
 const palabrasPorCategoria = {
-  animales: [
-    "RATON",
-    "ELEFANTE",
-    "IGUANA",
-    "BALLENA",
-    "GUEPARDO",
-    "CANGREJO",
-    "KOALA",
-    "SERPIENTE",
-    "CANGURO",
-  ],
-  tecnologia: [
-    "TECLADO",
-    "MONITOR",
-    "PROGRAMACION",
-    "INTERNET",
-    "PROCESADOR",
-    "SMARTPHONE",
-    "ROBOT",
-    "ALGORITMO",
-  ],
-  comida: [
-    "MANZANA",
-    "CHOCOLATE",
-    "HAMBURGUESA",
-    "PIZZA",
-    "HELADO",
-    "LASAÑA",
-    "TACOS",
-    "SUSHI",
-    "ENSALADA",
-    "PAELLA",
-  ],
-  lugares: [
-    "PARIS",
-    "MENORCA",
-    "HAWAI",
-    "LONDRES",
-    "TOKIO",
-    "EVEREST",
-    "AMAZONAS",
-    "SANTORINI",
-  ],
-  colores: [
-    "TURQUESA",
-    "VIOLETA",
-    "PURPURA",
-    "AMARILLO",
-    "CELESTE",
-    "CORAL",
-    "GRANATE",
-    "BEIGE",
-    "NARANJA",
-  ],
+  animales: ["RATON", "ELEFANTE", "IGUANA", "BALLENA", "GUEPARDO", "CANGREJO", "KOALA", "SERPIENTE", "CANGURO"],
+  tecnologia: ["TECLADO", "MONITOR", "PROGRAMACION", "INTERNET", "PROCESADOR", "SMARTPHONE", "ROBOT", "ALGORITMO"],
+  comida: ["MANZANA", "CHOCOLATE", "HAMBURGUESA", "PIZZA", "HELADO", "LASAÑA", "TACOS", "SUSHI", "ENSALADA", "PAELLA"],
+  lugares: ["PARIS", "MENORCA", "HAWAI", "LONDRES", "TOKIO", "EVEREST", "AMAZONAS", "SANTORINI"],
+  colores: ["TURQUESA", "VIOLETA", "PURPURA", "AMARILLO", "CELESTE", "CORAL", "GRANATE", "BEIGE", "NARANJA"],
 };
 
 let palabraSecreta = "";
@@ -64,63 +15,61 @@ let cronometroInterval;
 let tiempoCuentaAtras = 10;
 let cuentaAtrasInterval;
 const maxIntentos = 7;
+const recargarTiempo = 4000; // Tiempo para recargar en milisegundos
 
+// Elementos del DOM
 const palabraSecretaDiv = document.getElementById("palabra-secreta");
 const erroresDiv = document.getElementById("contenedor-errores");
 const intentosDiv = document.getElementById("contenedor-intentos");
 const cronometroDiv = document.getElementById("contenedor-cronometro");
-const cronometroLetraDiv = document.getElementById(
-  "contenedor-cronometro-letra"
-);
+const cronometroLetraDiv = document.getElementById("contenedor-cronometro-letra");
 const imagenAhorcado = document.getElementById("imagen-ahorcado");
 const botonPista = document.getElementById("botonPista");
 const selectCategoria = document.getElementById("categoria-select");
 const botonRanking = document.getElementById("mostrarRanking");
-const rankingDiv = document.getElementById("ranking");
 const rankingTablaBody = document.querySelector("#rankingTabla tbody");
+const rankingDiv = document.getElementById("ranking");
 
-//EVENT - Selección de categorías (al seleccionar categoría, se inicia el juego)
+// EVENTOS
 selectCategoria.addEventListener("change", (event) => {
   const categoriaSeleccionada = event.target.value;
-  if (categoriaSeleccionada) {
-    inicializarJuego(categoriaSeleccionada);
-  }
+  if (categoriaSeleccionada) inicializarJuego(categoriaSeleccionada);
 });
 
-//Los botones de las letras estan desactivados desde un inicio, se activan al iniciar la partida
 document.querySelectorAll(".letra").forEach((boton) => {
   boton.disabled = true;
-});
-
-botonPista.disabled = true;
-
-//EVENT - Seleccionar letra, lo que lleva a la función verificarLetra
-document.querySelectorAll(".letra").forEach((boton) => {
   boton.addEventListener("click", () => {
-    const letra = boton.innerText;
-    verificarLetra(letra, boton);
+    verificarLetra(boton.innerText, boton);
     boton.disabled = true;
   });
 });
 
+botonPista.disabled = true;
 botonPista.addEventListener("click", usarPista);
 botonRanking.addEventListener("click", mostrarRanking);
 
-//FUNCIONES
+// FUNCIONES GENERALES
+
 function pedirNombreJugador() {
-  nombreJugador = prompt("Por favor, introduce tu NOMBRE:");
-  if (!nombreJugador || nombreJugador.trim() === "") {
-    //.trim elimina cualquier espacio del String
-    alert("El nombre no puede estar vacío. Inténtalo de nuevo.");
-    pedirNombreJugador();
-  }
+  do {
+    nombreJugador = prompt("Por favor, introduce tu NOMBRE:");
+  } while (!nombreJugador || nombreJugador.trim() === "");
 }
 
+function reiniciarJuego() {
+  detenerCronometro();
+  detenerCuentaAtras();
+  setTimeout(() => location.reload(), recargarTiempo);
+}
+
+function configurarElemento(elemento, propiedades) {
+  Object.assign(elemento.style, propiedades);
+}
+
+// FUNCIONES DE JUEGO
+
 function inicializarJuego(categoriaSeleccionada) {
-  intentosDiv.style.fontWeight = "normal";
-  intentosDiv.style.fontSize = "medium";
-  intentosDiv.style.backgroundColor = "transparent";
-  intentosDiv.style.color = "black";
+  configurarElemento(intentosDiv, { fontWeight: "normal", fontSize: "medium", backgroundColor: "transparent", color: "black" });
   erroresDiv.innerText = "Errores: 0";
   intentosDiv.innerText = `Intentos restantes: ${maxIntentos}`;
   cronometroDiv.innerText = "Tiempo TOTAL: 0 segundos";
@@ -130,22 +79,16 @@ function inicializarJuego(categoriaSeleccionada) {
   botonPista.style.color = "green";
   tiempo = 0;
 
-  palabraSecreta =
-    palabrasPorCategoria[categoriaSeleccionada][
-      Math.floor(
-        Math.random() * palabrasPorCategoria[categoriaSeleccionada].length
-      )
-    ];
-
+  palabraSecreta = palabrasPorCategoria[categoriaSeleccionada][Math.floor(Math.random() * palabrasPorCategoria[categoriaSeleccionada].length)];
   pedirNombreJugador();
 
   palabraSecretaDiv.innerHTML = "";
-  for (let i = 0; i < palabraSecreta.length; i++) {
+  palabraSecreta.split("").forEach(() => {
     const letra = document.createElement("span");
     letra.classList.add("letra-secreta");
     letra.innerText = "_";
     palabraSecretaDiv.appendChild(letra);
-  }
+  });
 
   document.querySelectorAll(".letra").forEach((boton) => {
     boton.disabled = false;
@@ -156,97 +99,77 @@ function inicializarJuego(categoriaSeleccionada) {
   iniciarCuentaAtras();
 }
 
-function guardarDatosJugador(categoria) {
-  const datosJugador = {
-    nombre: nombreJugador || "Anónimo",
-    palabra: palabraSecreta,
-    categoria,
-    tiempo,
-    errores: contadorErrores,
-  };
-
-  let historial = JSON.parse(localStorage.getItem("historialAhorcado")) || [];
-  const registroExistente = historial.find(
-    (registro) => registro.palabra === palabraSecreta
-  );
-
-  let mensaje = "";
-
-  if (registroExistente) {
-    let actualizado = false;
-
-    if (tiempo < registroExistente.tiempo) {
-      registroExistente.tiempo = tiempo;
-      actualizado = true;
-    }
-
-    if (contadorErrores < registroExistente.errores) {
-      registroExistente.errores = contadorErrores;
-      actualizado = true;
-    }
-
-    if (registroExistente.nombre !== datosJugador.nombre) {
-      registroExistente.nombre = datosJugador.nombre;
-      actualizado = true;
-    }
-
-    mensaje = actualizado
-      ? `Nuevo récord para la palabra: ${palabraSecreta}`
-      : `No se superó el récord para la palabra: ${palabraSecreta}`;
-  } else {
-    historial.push(datosJugador);
-    mensaje = `Nueva puntuación añadida para la palabra: ${palabraSecreta}`;
-  }
-
-  // Guardar siempre el historial actualizado en localStorage
-  localStorage.setItem("historialAhorcado", JSON.stringify(historial));
-  alert(mensaje);
-}
-
 function verificarLetra(letra, boton) {
   detenerCuentaAtras();
   iniciarCuentaAtras();
 
-  let letraEncontrada = false;
   const letras = document.querySelectorAll(".letra-secreta");
+  let letraEncontrada = false;
 
-  for (let i = 0; i < palabraSecreta.length; i++) {
-    if (palabraSecreta[i] === letra) {
-      letras[i].innerText = letra;
+  palabraSecreta.split("").forEach((caracter, index) => {
+    if (caracter === letra) {
+      letras[index].innerText = letra;
       letraEncontrada = true;
     }
-  }
+  });
 
   if (letraEncontrada) {
     boton.classList.add("correcta");
-    const palabraDescubierta = [...letras].every(
-      (letra) => letra.innerText !== "_"
-    );
-    if (palabraDescubierta) {
+    if ([...letras].every((letra) => letra.innerText !== "_")) {
       detenerCronometro();
       detenerCuentaAtras();
       intentosDiv.innerText = "¡HAS GANADO!";
-      mostrarEstiloResultado("green");
+      configurarElemento(intentosDiv, { backgroundColor: "green", color: "white" });
       desactivarBotones();
       guardarDatosJugador(selectCategoria.value);
       alert("¡Has ganado! Se ha actualizado el ranking.");
-      setTimeout(() => location.reload(), 4000); // Recargar la página tras 4 segundos
-      return;
+      reiniciarJuego();
     }
   } else {
     boton.classList.add("incorrecta");
     reducirIntentos();
   }
+}
 
-  boton.disabled = true;
+function reducirIntentos() {
+  contadorErrores++;
+  erroresDiv.innerText = `Errores: ${contadorErrores}`;
+  intentosDiv.innerText = `Intentos restantes: ${maxIntentos - contadorErrores}`;
+  actualizarImagenAhorcado();
 
-  if (contadorErrores >= 5) {
-    botonPista.disabled = true;
-    botonPista.style.background = "red";
-    botonPista.innerText = "SIN PISTAS";
-    botonPista.style.cursor = "not-allowed";
+  if (contadorErrores >= maxIntentos) {
+    intentosDiv.innerText = "¡Has perdido!";
+    configurarElemento(intentosDiv, { backgroundColor: "red", color: "white" });
+    alert("Has perdido");
+    desactivarBotones();
+    reiniciarJuego();
   }
 }
+
+function desactivarBotones() {
+  document.querySelectorAll(".letra").forEach((boton) => (boton.disabled = true));
+}
+
+function actualizarImagenAhorcado() {
+  if (contadorErrores <= maxIntentos) {
+    imagenAhorcado.src = `img/${contadorErrores}.png`;
+  }
+}
+
+function usarPista() {
+  if (contadorErrores < maxIntentos) {
+    const letras = document.querySelectorAll(".letra-secreta");
+    for (let i = 0; i < palabraSecreta.length; i++) {
+      if (letras[i].innerText === "_") {
+        letras[i].innerText = palabraSecreta[i]; // Revela la letra
+        reducirIntentos(); // Penaliza con un intento
+        return;
+      }
+    }
+  }
+}
+
+// FUNCIONES DE TIEMPO
 
 function iniciarCronometro() {
   if (!cronometroEnMarcha) {
@@ -284,44 +207,50 @@ function detenerCuentaAtras() {
   clearInterval(cuentaAtrasInterval);
 }
 
-function reducirIntentos() {
-  contadorErrores++;
-  erroresDiv.innerText = `Errores: ${contadorErrores}`;
-  intentosDiv.innerText = `Intentos restantes: ${
-    maxIntentos - contadorErrores
-  }`;
-  actualizarImagenAhorcado();
+// FUNCIONES DE RANKING
 
-  if (contadorErrores >= maxIntentos) {
-    detenerCronometro();
-    detenerCuentaAtras();
-    mostrarEstiloResultado("red");
-    intentosDiv.style.color = "white";
-    intentosDiv.innerText = "¡Has perdido!";
-    alert("Has perdido");
-    botonPista.disabled = true;
-    desactivarBotones();
-    setTimeout(() => location.reload(), 4000); // Recargar la página tras 4 segundos
+function guardarDatosJugador(categoria) {
+  const datosJugador = {
+    nombre: nombreJugador || "Anónimo",
+    palabra: palabraSecreta,
+    categoria,
+    tiempo,
+    errores: contadorErrores,
+  };
+
+  let historial = JSON.parse(localStorage.getItem("historialAhorcado")) || [];
+  const registroExistente = historial.find((registro) => registro.palabra === palabraSecreta);
+
+  let mensaje = "";
+
+  if (registroExistente) {
+    let actualizado = false;
+
+    if (tiempo < registroExistente.tiempo) {
+      registroExistente.tiempo = tiempo;
+      actualizado = true;
+    }
+
+    if (contadorErrores < registroExistente.errores) {
+      registroExistente.errores = contadorErrores;
+      actualizado = true;
+    }
+
+    if (registroExistente.nombre !== datosJugador.nombre) {
+      registroExistente.nombre = datosJugador.nombre;
+      actualizado = true;
+    }
+
+    mensaje = actualizado
+      ? `Nuevo récord para la palabra: ${palabraSecreta}`
+      : `No se superó el récord para la palabra: ${palabraSecreta}`;
+  } else {
+    historial.push(datosJugador);
+    mensaje = `Nueva puntuación añadida para la palabra: ${palabraSecreta}`;
   }
-}
 
-function actualizarImagenAhorcado() {
-  if (contadorErrores <= maxIntentos) {
-    imagenAhorcado.src = `img/${contadorErrores}.png`;
-  }
-}
-
-function desactivarBotones() {
-  document
-    .querySelectorAll(".letra")
-    .forEach((boton) => (boton.disabled = true));
-}
-
-function mostrarEstiloResultado(color) {
-  intentosDiv.style.border = "3px solid black";
-  intentosDiv.style.fontWeight = "bolder";
-  intentosDiv.style.fontSize = "x-large";
-  intentosDiv.style.backgroundColor = color;
+  localStorage.setItem("historialAhorcado", JSON.stringify(historial));
+  alert(mensaje);
 }
 
 function mostrarRanking() {
@@ -350,19 +279,4 @@ function mostrarRanking() {
   });
 
   rankingDiv.style.display = "block";
-}
-
-function usarPista() {
-  if (contadorErrores < maxIntentos) {
-    // Busca la primera letra no descubierta
-    const letras = document.querySelectorAll(".letra-secreta");
-    for (let i = 0; i < palabraSecreta.length; i++) {
-      if (letras[i].innerText === "_") {
-        letras[i].innerText = palabraSecreta[i]; // Revela la letra
-        reducirIntentos();
-        reducirIntentos();
-        return;
-      }
-    }
-  }
 }

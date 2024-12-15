@@ -50,7 +50,7 @@ h3 {
 }
 
 .contenedor-letras {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -240,7 +240,7 @@ h3 {
 #mostrarRanking {
   padding: 5px;
   margin: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background-color: var(--color-secundario);
   color: var(--color-texto);
   width: 150px;
