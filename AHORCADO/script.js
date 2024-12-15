@@ -170,6 +170,8 @@ function guardarDatosJugador(categoria) {
     (registro) => registro.palabra === palabraSecreta
   );
 
+  let mensaje = "";
+
   if (registroExistente) {
     let actualizado = false;
 
@@ -188,17 +190,17 @@ function guardarDatosJugador(categoria) {
       actualizado = true;
     }
 
-    if (actualizado) {
-      alert(`Nuevo récord para la palabra: ${palabraSecreta}`);
-    } else {
-      alert(`No se superó el récord para la palabra: ${palabraSecreta}`);
-    }
+    mensaje = actualizado
+      ? `Nuevo récord para la palabra: ${palabraSecreta}`
+      : `No se superó el récord para la palabra: ${palabraSecreta}`;
   } else {
     historial.push(datosJugador);
-    alert(`Nueva puntuación añadida para la palabra: ${palabraSecreta}`);
+    mensaje = `Nueva puntuación añadida para la palabra: ${palabraSecreta}`;
   }
 
+  // Guardar siempre el historial actualizado en localStorage
   localStorage.setItem("historialAhorcado", JSON.stringify(historial));
+  alert(mensaje);
 }
 
 function verificarLetra(letra, boton) {
@@ -223,18 +225,19 @@ function verificarLetra(letra, boton) {
     if (palabraDescubierta) {
       detenerCronometro();
       detenerCuentaAtras();
-      intentosDiv.innerText = "¡Has ganado!";
+      intentosDiv.innerText = "¡HAS GANADO!";
       mostrarEstiloResultado("green");
-      intentosDiv.style.color = "white";
-      botonPista.disabled = true;
       desactivarBotones();
       guardarDatosJugador(selectCategoria.value);
+      alert("¡Has ganado! Se ha actualizado el ranking.");
+      setTimeout(() => location.reload(), 4000); // Recargar la página tras 4 segundos
       return;
     }
   } else {
     boton.classList.add("incorrecta");
     reducirIntentos();
   }
+
   boton.disabled = true;
 
   if (contadorErrores >= 5) {
@@ -295,8 +298,10 @@ function reducirIntentos() {
     mostrarEstiloResultado("red");
     intentosDiv.style.color = "white";
     intentosDiv.innerText = "¡Has perdido!";
+    alert("Has perdido");
     botonPista.disabled = true;
     desactivarBotones();
+    setTimeout(() => location.reload(), 4000); // Recargar la página tras 4 segundos
   }
 }
 
