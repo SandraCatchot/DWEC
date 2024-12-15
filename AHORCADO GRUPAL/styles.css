@@ -96,7 +96,7 @@ h3 {
   padding: 15px;
   font-size: 35px;
   color: black;
-  min-height: 35px;
+  min-height: 40px;
 }
 
 .letra-secreta {
@@ -147,6 +147,47 @@ h3 {
   width: 300px;
 }
 
+#botonReiniciar {
+  padding: 10px;
+  margin: 5px;
+  background-color: #F4F3EE;
+  border: 5px solid var(--color-principal);
+
+  &:hover {
+    background-color: #28a745;
+    cursor: pointer;
+    transform: scale(1.1);
+    border: 5px solid var(--color-principal);
+  }
+}
+
+#botonParar {
+  padding: 10px;
+  margin: 5px;
+  background-color: #F4F3EE;
+  border: 5px solid var(--color-principal);
+
+  &:hover {
+    background-color: #dc3545;
+    cursor: pointer;
+    transform: scale(1.1);
+    border: 5px solid var(--color-principal);
+  }
+}
+
+#botonIniciar {
+  padding: 10px;
+  margin: 5px;
+  background-color: #F4F3EE;
+  border: 5px solid var(--color-principal);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    border: 5px solid var(--color-principal);
+  }
+}
+
 #botonPista {
   padding: 15px;
   margin: 10px;
@@ -162,23 +203,35 @@ h3 {
     border: 3px solid yellow;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
 }
 
 #imagen-ahorcado {
-  max-width: 280px;
-  max-height: 280px;
+  max-width: 260px;
+  max-height: 260px;
 }
 
 .contenedor-categoria-botones {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 #categoria-select {
+  width: 180px;
+  height: 30px;
+  background-color: var(--color-principal);
+  color: var(--color-fondo);
+  font-size: medium;
+  margin: 10px;
+  padding: 5px;
+
+  &:hover {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+  }
+}
+
+#dificultad-select {
   width: 180px;
   height: 30px;
   background-color: var(--color-principal);
@@ -255,9 +308,7 @@ h3 {
   }
 }
 
-@media (max-width: 750px) {
-  
-
+@media (max-width: 700px) {
   #ranking {
     width: 100%; 
     padding: 5px;
@@ -267,5 +318,9 @@ h3 {
   #rankingTabla td {
     padding: 6px; 
     font-size: 0.9em; 
+  }
+
+  #contenedor-datos {
+    flex-direction: row;
   }
 }

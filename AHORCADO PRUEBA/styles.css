@@ -38,12 +38,6 @@ h3 {
   color: var(--color-texto);
 }
 
-.contenedor-mix {
-  display: flex;
-  justify-content: space-between;
-  max-width: 500px;
-}
-
 #contenedor-datos {
   display: flex;
   align-items: center;
@@ -145,6 +139,31 @@ h3 {
   border-radius: 5px;
   border: solid 4px var(--color-principal);
   width: 300px;
+}
+
+#botonJugar {
+  padding: 10px;
+  margin: 5px;
+  background-color: var(--color-fondo);
+  border: 3px solid var(--color-principal);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#botonJugar:hover {
+  background-color: var(--color-secundario);
+  color: var(--color-texto);
+  transform: scale(1.1);
+}
+
+#inputNombre {
+  width: 200px;
+  padding: 10px;
+  margin: 5px;
+  border: 2px solid var(--color-principal);
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 #botonPista {
@@ -255,8 +274,7 @@ h3 {
   }
 }
 
-@media (max-width: 750px) {
-  
+@media (max-width: 750px) {  
 
   #ranking {
     width: 100%; 
@@ -269,3 +287,5 @@ h3 {
     font-size: 0.9em; 
   }
 }
+
+

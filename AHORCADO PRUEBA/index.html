@@ -8,8 +8,10 @@
   </head>
   <body>
     <h1>¿Serás capaz de adivinar la palabra?</h1>
-    <h3>Elige una categoría para jugar</h3>
-    <div class="contenedor-categoria-botones">      
+    <h3>Introduce tu nombre y elige una categoría para jugar</h3>
+    <div class="contenedor-categoria-botones">
+      <label for="nombre-input">Nombre:</label>
+      <input id="nombre-input" type="text" placeholder="Escribe tu nombre..." />
       <label for="categoria-select"></label>
       <select id="categoria-select">
         <option value="" disabled selected>Elige una categoría...</option>
@@ -20,6 +22,7 @@
         <option value="colores">Colores</option>
       </select>
     </div>
+    <button id="botonJugar">JUGAR</button>
     <div id="palabra-secreta"></div>
     <div id="contenedor-datos">
       <div class="divIzquierdo">
@@ -27,7 +30,7 @@
         <div id="contenedor-intentos">Intentos: 7</div>
         <div id="contenedor-errores">Errores: 0</div>
         <p>PISTA = -2 INTENTOS</p>
-        <button id="botonPista">PISTA</button>        
+        <button id="botonPista" disabled>PISTA</button>        
       </div>
       <div id="contenedor-ahorcado">
         <img id="imagen-ahorcado" src="img/0.png" alt="Estado del ahorcado" />
@@ -35,7 +38,6 @@
     </div>
     <div id="contenedor-cronometro-letra">Tiempo LETRA: 10 segundos</div>
     <h3>Elige una letra...</h3>
-    <div class="contenedor-mix">
       <div class="contenedor-letras">
         <button class="letra">A</button>
         <button class="letra">B</button>
@@ -64,7 +66,6 @@
         <button class="letra">Y</button>
         <button class="letra">Z</button>
       </div>
-    </div>
     <div>
       <button id="mostrarRanking">Ver Ranking</button>
     </div>

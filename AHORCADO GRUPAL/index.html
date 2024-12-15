@@ -8,8 +8,8 @@
   </head>
   <body>
     <h1>¿Serás capaz de adivinar la palabra?</h1>
-    <h3>Elige una categoría para jugar</h3>
-    <div class="contenedor-categoria-botones">      
+    <h3>Elige una categoría y una dificultad para jugar</h3>
+    <div class="contenedor-categoria-botones">
       <label for="categoria-select"></label>
       <select id="categoria-select">
         <option value="" disabled selected>Elige una categoría...</option>
@@ -19,7 +19,20 @@
         <option value="lugares">Lugares</option>
         <option value="colores">Colores</option>
       </select>
+      <label for="dificultad-select"></label>
+      <select id="dificultad-select">
+        <option value="" disabled selected>Elige una dificultad...</option>
+        <option value="facil">Fácil</option>
+        <option value="medio">Media</option>
+        <option value="dificil">Difícil</option>
+      </select>
+      <div>
+        <button id="botonIniciar" disabled>Iniciar Juego</button>
+        <button id="botonParar">PAUSAR</button>
+        <button id="botonReiniciar">REINICIAR</button>
+      </div>
     </div>
+
     <div id="palabra-secreta"></div>
     <div id="contenedor-datos">
       <div class="divIzquierdo">
@@ -27,7 +40,7 @@
         <div id="contenedor-intentos">Intentos: 7</div>
         <div id="contenedor-errores">Errores: 0</div>
         <p>PISTA = -2 INTENTOS</p>
-        <button id="botonPista">PISTA</button>        
+        <button id="botonPista">PISTA</button>
       </div>
       <div id="contenedor-ahorcado">
         <img id="imagen-ahorcado" src="img/0.png" alt="Estado del ahorcado" />
@@ -65,6 +78,7 @@
         <button class="letra">Z</button>
       </div>
     </div>
+
     <div>
       <button id="mostrarRanking">Ver Ranking</button>
     </div>
@@ -80,9 +94,7 @@
             <th>Categoría</th>
           </tr>
         </thead>
-        <tbody>
-          
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
 

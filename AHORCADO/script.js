@@ -1,9 +1,58 @@
 const palabrasPorCategoria = {
-  animales: ["RATON", "ELEFANTE", "IGUANA", "BALLENA", "GUEPARDO"],
-  tecnologia: ["TECLADO", "MONITOR", "PROGRAMACION", "INTERNET", "PROCESADOR"],
-  comida: ["MANZANA", "CHOCOLATE", "HAMBURGUESA", "PIZZA", "HELADO"],
-  lugares: ["PARIS", "MENORCA", "HAWAI", "PLAYA", "DESIERTO"],
-  colores: ["TURQUESA", "VIOLETA", "PURPURA", "AMARILLO", "CELESTE"],
+  animales: [
+    "RATON",
+    "ELEFANTE",
+    "IGUANA",
+    "BALLENA",
+    "GUEPARDO",
+    "CANGREJO",
+    "KOALA",
+    "SERPIENTE",
+    "CANGURO",
+  ],
+  tecnologia: [
+    "TECLADO",
+    "MONITOR",
+    "PROGRAMACION",
+    "INTERNET",
+    "PROCESADOR",
+    "SMARTPHONE",
+    "ROBOT",
+    "ALGORITMO",
+  ],
+  comida: [
+    "MANZANA",
+    "CHOCOLATE",
+    "HAMBURGUESA",
+    "PIZZA",
+    "HELADO",
+    "LASAÑA",
+    "TACOS",
+    "SUSHI",
+    "ENSALADA",
+    "PAELLA",
+  ],
+  lugares: [
+    "PARIS",
+    "MENORCA",
+    "HAWAI",
+    "LONDRES",
+    "TOKIO",
+    "EVEREST",
+    "AMAZONAS",
+    "SANTORINI",
+  ],
+  colores: [
+    "TURQUESA",
+    "VIOLETA",
+    "PURPURA",
+    "AMARILLO",
+    "CELESTE",
+    "CORAL",
+    "GRANATE",
+    "BEIGE",
+    "NARANJA",
+  ],
 };
 
 let palabraSecreta = "";
@@ -20,30 +69,32 @@ const palabraSecretaDiv = document.getElementById("palabra-secreta");
 const erroresDiv = document.getElementById("contenedor-errores");
 const intentosDiv = document.getElementById("contenedor-intentos");
 const cronometroDiv = document.getElementById("contenedor-cronometro");
-const cronometroLetraDiv = document.getElementById("contenedor-cronometro-letra");
+const cronometroLetraDiv = document.getElementById(
+  "contenedor-cronometro-letra"
+);
 const imagenAhorcado = document.getElementById("imagen-ahorcado");
-const botonReiniciar = document.getElementById("botonReiniciar");
-const botonParar = document.getElementById("botonParar");
 const botonPista = document.getElementById("botonPista");
 const selectCategoria = document.getElementById("categoria-select");
 const botonRanking = document.getElementById("mostrarRanking");
 const rankingDiv = document.getElementById("ranking");
 const rankingTablaBody = document.querySelector("#rankingTabla tbody");
 
+//EVENT - Selección de categorías (al seleccionar categoría, se inicia el juego)
+selectCategoria.addEventListener("change", (event) => {
+  const categoriaSeleccionada = event.target.value;
+  if (categoriaSeleccionada) {
+    inicializarJuego(categoriaSeleccionada);
+  }
+});
+
+//Los botones de las letras estan desactivados desde un inicio, se activan al iniciar la partida
 document.querySelectorAll(".letra").forEach((boton) => {
   boton.disabled = true;
 });
 
-//EVENTS
-selectCategoria.addEventListener("change", (event) => {
-  const categoriaSeleccionada = event.target.value;
-  if (categoriaSeleccionada) inicializarJuego(categoriaSeleccionada);
-});
+botonPista.disabled = true;
 
-botonReiniciar.addEventListener("click", reiniciarJuego);
-botonParar.addEventListener("click", pararJuego);
-botonPista.addEventListener('click', usarPista);
-
+//EVENT - Seleccionar letra, lo que lleva a la función verificarLetra
 document.querySelectorAll(".letra").forEach((boton) => {
   boton.addEventListener("click", () => {
     const letra = boton.innerText;
@@ -52,36 +103,41 @@ document.querySelectorAll(".letra").forEach((boton) => {
   });
 });
 
+botonPista.addEventListener("click", usarPista);
 botonRanking.addEventListener("click", mostrarRanking);
 
 //FUNCIONES
 function pedirNombreJugador() {
   nombreJugador = prompt("Por favor, introduce tu NOMBRE:");
   if (!nombreJugador || nombreJugador.trim() === "") {
+    //.trim elimina cualquier espacio del String
     alert("El nombre no puede estar vacío. Inténtalo de nuevo.");
     pedirNombreJugador();
   }
 }
 
 function inicializarJuego(categoriaSeleccionada) {
-  resetearEstilos();
+  intentosDiv.style.fontWeight = "normal";
+  intentosDiv.style.fontSize = "medium";
+  intentosDiv.style.backgroundColor = "transparent";
+  intentosDiv.style.color = "black";
   erroresDiv.innerText = "Errores: 0";
   intentosDiv.innerText = `Intentos restantes: ${maxIntentos}`;
   cronometroDiv.innerText = "Tiempo TOTAL: 0 segundos";
   cronometroLetraDiv.innerText = "";
   imagenAhorcado.src = "img/0.png";
-
-  contadorErrores = 0;
+  botonPista.disabled = false;
+  botonPista.style.color = "green";
   tiempo = 0;
 
   palabraSecreta =
     palabrasPorCategoria[categoriaSeleccionada][
-      Math.floor(Math.random() * palabrasPorCategoria[categoriaSeleccionada].length)
+      Math.floor(
+        Math.random() * palabrasPorCategoria[categoriaSeleccionada].length
+      )
     ];
 
   pedirNombreJugador();
-  detenerCronometro();
-  detenerCuentaAtras();
 
   palabraSecretaDiv.innerHTML = "";
   for (let i = 0; i < palabraSecreta.length; i++) {
@@ -110,26 +166,36 @@ function guardarDatosJugador(categoria) {
   };
 
   let historial = JSON.parse(localStorage.getItem("historialAhorcado")) || [];
-  const registroExistente = historial.find((registro) => registro.palabra === palabraSecreta);
+  const registroExistente = historial.find(
+    (registro) => registro.palabra === palabraSecreta
+  );
 
   if (registroExistente) {
     let actualizado = false;
+
     if (tiempo < registroExistente.tiempo) {
       registroExistente.tiempo = tiempo;
       actualizado = true;
     }
+
     if (contadorErrores < registroExistente.errores) {
       registroExistente.errores = contadorErrores;
       actualizado = true;
     }
+
+    if (registroExistente.nombre !== datosJugador.nombre) {
+      registroExistente.nombre = datosJugador.nombre;
+      actualizado = true;
+    }
+
     if (actualizado) {
-      console.log(`Nuevo récord para la palabra: ${palabraSecreta}`);
+      alert(`Nuevo récord para la palabra: ${palabraSecreta}`);
     } else {
-      console.log(`No se superó el récord para la palabra: ${palabraSecreta}`);
+      alert(`No se superó el récord para la palabra: ${palabraSecreta}`);
     }
   } else {
     historial.push(datosJugador);
-    console.log(`Nueva puntuación añadida para la palabra: ${palabraSecreta}`);
+    alert(`Nueva puntuación añadida para la palabra: ${palabraSecreta}`);
   }
 
   localStorage.setItem("historialAhorcado", JSON.stringify(historial));
@@ -151,12 +217,17 @@ function verificarLetra(letra, boton) {
 
   if (letraEncontrada) {
     boton.classList.add("correcta");
-    const palabraDescubierta = [...letras].every((letra) => letra.innerText !== "_");
+    const palabraDescubierta = [...letras].every(
+      (letra) => letra.innerText !== "_"
+    );
     if (palabraDescubierta) {
       detenerCronometro();
       detenerCuentaAtras();
-      intentosDiv.innerText = "¡HAS GANADO!";
+      intentosDiv.innerText = "¡Has ganado!";
       mostrarEstiloResultado("green");
+      intentosDiv.style.color = "white";
+      botonPista.disabled = true;
+      desactivarBotones();
       guardarDatosJugador(selectCategoria.value);
       return;
     }
@@ -166,7 +237,7 @@ function verificarLetra(letra, boton) {
   }
   boton.disabled = true;
 
-  if(contadorErrores >= 5) {
+  if (contadorErrores >= 5) {
     botonPista.disabled = true;
     botonPista.style.background = "red";
     botonPista.innerText = "SIN PISTAS";
@@ -174,7 +245,6 @@ function verificarLetra(letra, boton) {
   }
 }
 
-//FUNCIONES DE TIEMPO
 function iniciarCronometro() {
   if (!cronometroEnMarcha) {
     cronometroEnMarcha = true;
@@ -211,18 +281,21 @@ function detenerCuentaAtras() {
   clearInterval(cuentaAtrasInterval);
 }
 
-//OTRAS FUNCIONES
 function reducirIntentos() {
   contadorErrores++;
   erroresDiv.innerText = `Errores: ${contadorErrores}`;
-  intentosDiv.innerText = `Intentos restantes: ${maxIntentos - contadorErrores}`;
+  intentosDiv.innerText = `Intentos restantes: ${
+    maxIntentos - contadorErrores
+  }`;
   actualizarImagenAhorcado();
 
   if (contadorErrores >= maxIntentos) {
     detenerCronometro();
     detenerCuentaAtras();
     mostrarEstiloResultado("red");
+    intentosDiv.style.color = "white";
     intentosDiv.innerText = "¡Has perdido!";
+    botonPista.disabled = true;
     desactivarBotones();
   }
 }
@@ -234,7 +307,9 @@ function actualizarImagenAhorcado() {
 }
 
 function desactivarBotones() {
-  document.querySelectorAll(".letra").forEach((boton) => (boton.disabled = true));
+  document
+    .querySelectorAll(".letra")
+    .forEach((boton) => (boton.disabled = true));
 }
 
 function mostrarEstiloResultado(color) {
@@ -242,28 +317,6 @@ function mostrarEstiloResultado(color) {
   intentosDiv.style.fontWeight = "bolder";
   intentosDiv.style.fontSize = "x-large";
   intentosDiv.style.backgroundColor = color;
-}
-
-function resetearEstilos() {
-  intentosDiv.style.border = "";
-  intentosDiv.style.fontWeight = "";
-  intentosDiv.style.fontSize = "";
-  intentosDiv.style.backgroundColor = "";
-}
-
-function reiniciarJuego() {
-  iniciarCronometro();
-  iniciarCuentaAtras();
-  document.querySelectorAll(".letra").forEach((boton) => {
-    boton.disabled = false;
-  });
-}
-
-function pararJuego() {
-  detenerCronometro();
-  detenerCuentaAtras();
-  desactivarBotones();
-  intentosDiv.innerText = "Juego pausado. Reinicia o inicia para continuar.";
 }
 
 function mostrarRanking() {
@@ -306,7 +359,5 @@ function usarPista() {
         return;
       }
     }
-  } else {
-    alert("¡No puedes usar pistas si ya perdiste todos los intentos!");
   }
 }
