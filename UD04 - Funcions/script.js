@@ -84,7 +84,7 @@
 //     //Redondear n al multiplo más cercano a m
 //     let resto = n % m;
 //     return n - resto + (resto < m / 2 ? 0 : m);
-//   };
+//   };0
 
 // const saluda = (nombre) => console.log(nombre);
 // saluda("Joan");

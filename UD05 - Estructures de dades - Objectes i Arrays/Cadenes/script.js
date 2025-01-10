@@ -26,7 +26,7 @@
 // let saludoCompleto = saludo.concat(', ¿cómo estás?');
 // console.log(saludoCompleto);
 
-// inclues(): verifica si una cadena conté una altra (retornarà un booleà)
+// includes(): verifica si una cadena conté una altra (retornarà un booleà)
 // console.log(saludo.includes('mundo'));
 // console.log(saludoCompleto.includes('cómo'));
 

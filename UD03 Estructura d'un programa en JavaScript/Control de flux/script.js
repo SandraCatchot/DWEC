@@ -1,9 +1,9 @@
-// let numero = Number(prompt("Elije tu número:"));
+// let numero = Number(prompt("Elige tu número:"));
 
 // console.log("Tu número es la raíz cuadrada de " + numero * numero);
 
 // Condicional
-// let numero = Number(prompt("Elije tu número:"));
+// let numero = Number(prompt("Elige tu número:"));
 
 // if(!Number.isNaN(numero)) {
 //   console.log("Tu número es la raíz cuadrada de " + numero * numero);
