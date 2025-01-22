@@ -1,16 +1,22 @@
 import "./App.css";
 import { useState } from "react";
+import Titulo from "./components/Titulo";
+import Modal from "./components/Modal";
+import EventosLista from "./components/EventosLista";
+import EventoNuevoForm from "./components/EventoNuevoForm";
 
 function App() {
-  const [mostrarEventos, setmostrarEventos] = useState(true);
+  const [muestraModal, setMuestraModal] = useState(false);
+  const [mostrarEventos, setMostrarEventos] = useState(true);
 
-  const [eventos, setEventos] = useState([
-    { titulo: "examen dwec", id: 1 },
-    { titulo: "concurso programame", id: 2 },
-    { titulo: "fiesta de sant antoni", id: 3 },
-  ]);
+  const [eventos, setEventos] = useState([]);
 
-  console.log(mostrarEventos);
+  const addEvento = (evento) => {
+    setEventos((eventosPrevios) => {
+      return [...eventosPrevios, evento];
+    })
+    setMuestraModal(false);
+  };
 
   const handleClick = (id) => {
     setEventos((eventosPrevios) =>
@@ -18,29 +24,41 @@ function App() {
     );
   };
 
+  const subTitulo = "Todos los eventos para Desarrollo de Aplicaciones Web";
+
   return (
     <div className="App">
-      { mostrarEventos && (
+      <Titulo titulo="Eventos de DAW 24/25" subTitulo={subTitulo} />
+      {mostrarEventos && (
         <div>
-        <button onClick={()=>setmostrarEventos(false)}>Ocultar eventos</button>
-      </div>
-      )}
-
-      { !mostrarEventos && (
-        <div>
-        <button onClick={()=>setmostrarEventos(true)}>Mostrar eventos</button>
-      </div>
-      )}
-      {mostrarEventos && eventos.map((evento, index) => (
-        <div key={evento.id}>
-          <h2>
-            {index} - {evento.titulo}
-          </h2>
-          <button onClick={() => handleClick(evento.id)}>
-            Eliminar evento
+          <button onClick={() => setMostrarEventos(false)}>
+            Ocultar Eventos
           </button>
         </div>
-      ))}
+      )}
+      {!mostrarEventos && (
+        <div>
+          <button onClick={() => setMostrarEventos(true)}>
+            Mostrar Eventos
+          </button>
+        </div>
+      )}
+      {mostrarEventos && (
+        <EventosLista eventos={eventos} handleClick={handleClick} />
+      )}
+      {muestraModal && (
+        <Modal
+          destino={document.body}
+          esExterno={true}
+        >
+          <EventoNuevoForm addEvento={addEvento} />
+        </Modal>
+      )}
+      <div>
+        <button onClick={() => setMuestraModal(true)}>
+          Crear nuevo evento
+        </button>
+      </div>
     </div>
   );
 }
