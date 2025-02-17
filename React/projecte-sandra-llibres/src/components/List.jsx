@@ -10,10 +10,9 @@ export default function List({ libros }) {
         libros.map((libro) => (
           <div key={libro.id} className="card">
             {libro.portada && <img src={libro.portada} alt={libro.titulo} className="portada" />}
-            <h3>{libro.titulo}</h3>
+            <Link to={`/libro/${libro.id}`}><h3>{libro.titulo}</h3></Link>
             <p><strong>Autor:</strong> {libro.autor}</p>
-            <p><strong>Publicado:</strong> {libro.fechaPublicacion}</p>
-            <Link to={`/libro/${libro.id}`}>📖 Ver más detalles</Link>
+            <p><strong>Publicado:</strong> {libro.fechaPublicacion}</p>            
           </div>
         ))
       )}

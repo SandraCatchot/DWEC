@@ -7,7 +7,7 @@ export default function Inicio() {
 
   return (
     <div className="inicio">
-      <h2>📚 Lista de libros</h2>
+      <h2>Lista de libros</h2>
       {cargando && <p>Cargando libros...</p>}
       {error && <p className="error">{error}</p>}
       <List libros={libros} />

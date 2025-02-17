@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, addDoc, doc, deleteDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig"; 
 
 export function useFirestore(coleccion) {
@@ -23,7 +23,6 @@ export function useFirestore(coleccion) {
       },
       (err) => {
         setError("S'ha produït un error de càrrega de dades");
-        console.error(err);
         setCargando(false);
       }
     );
