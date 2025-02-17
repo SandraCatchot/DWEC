@@ -1,0 +1,25 @@
+{
+    "receptes": [
+        {
+            "id": "1",
+            "nom": "Vianda",
+            "autor": "Erik Michelin",
+            "ingredients": ["caldo casero", "tiburons", "pilotes", "sopes"],
+            "elaboracio": "Bullir caldo casero amb ses pilotes, posar tiburons, deixar que es fagin i després de posar al plat, afegir les sopes"
+        },
+        {
+            "id": "2",
+            "nom": "Crepes",
+            "autor": "Sergi Nutella",
+            "ingredients": ["llet", "ous", "farina", "sucre"],
+            "elaboracio": "Mesclar tots els ingredients fins que quedi bé i posar a sa paella, després posar Nutella i a disfrutar"
+        },
+        {
+            "id": "3",
+            "nom": "Tiramisú",
+            "autor": "Guillem Dolç",
+            "ingredients": ["café", "congret", "mascarpone", "sucre"],
+            "elaboracio": "Mesclar tots els ingredients fins que quedi bé i posar a sa paella, després posar Nutella i a disfrutar"
+        }
+    ]
+}
