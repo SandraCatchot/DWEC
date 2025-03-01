@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, addDoc, doc, deleteDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, deleteDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig"; 
 
 export function useFirestore(coleccion) {
@@ -22,7 +22,7 @@ export function useFirestore(coleccion) {
         setCargando(false);
       },
       (err) => {
-        setError("S'ha produït un error de càrrega de dades");
+        setError("ERROR en la carga de datos");
         setCargando(false);
       }
     );
@@ -34,7 +34,7 @@ export function useFirestore(coleccion) {
     try {
       await addDoc(collection(db, coleccion), nuevoDato);
     } catch (err) {
-      setError("S'ha produit un error en afegir el document");
+      setError("ERROR al cargar el documento");
       console.error(err);
     }
   };
@@ -43,10 +43,18 @@ export function useFirestore(coleccion) {
     try {
       await deleteDoc(doc(db, coleccion, id));
     } catch (err) {
-      setError("S'ha produit un error al esborrar el document");
+      setError("ERROR al borrar el documento");
       console.error(err);
     }
   };
 
-  return { datos, cargando, error, agregarDocumento, eliminarDocumento };
+  const editarDocumento = async (id,datosActualizados) => {
+    try {
+      await updateDoc(doc(db, coleccion, id), datosActualizados);
+    }catch (err) {
+      console.log(err)
+    }
+  }
+
+  return { datos, cargando, error, agregarDocumento, eliminarDocumento, editarDocumento };
 }

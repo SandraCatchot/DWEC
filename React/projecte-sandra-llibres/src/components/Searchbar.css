@@ -1,0 +1,22 @@
+.searchbar {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .searchbar input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid var(--highlight-color);
+    border-radius: 4px;
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    font-family: "Courier New", monospace;
+  }
+  
+  
+  .searchbar input::placeholder {
+    color: var(--highlight-color);
+    opacity: 0.7;
+  }
+  
